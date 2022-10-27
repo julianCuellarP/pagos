@@ -1,5 +1,6 @@
 package co.edu.unisabana.pagos.controller;
 
+import co.edu.unisabana.pagos.service.Publicador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,12 +16,15 @@ public class PagoController {
     @Value("${propiedad1}")
     private String valor;
 
-    @Autowired
-    private Data pago;
+    private Publicador publicador;
+
+    public PagoController(Publicador publicador) {
+        this.publicador = publicador;
+    }
 
     @PostMapping("/pay")
     public String pagar() {
-
-        return pago.getPago() + " Hola Mundo VOLVI MAS FUERTE " + valor;
+        publicador.enviarMensaje(new Pago(100, "01", "22"));
+        return "Hola Mundo VOLVI MAS FUERTE " + valor;
     }
 }

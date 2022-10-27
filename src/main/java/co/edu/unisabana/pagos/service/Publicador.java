@@ -1,5 +1,6 @@
 package co.edu.unisabana.pagos.service;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -9,12 +10,14 @@ import org.springframework.stereotype.Service;
 public class Publicador {
 
     private RabbitTemplate rabbitTemplate;
+    private Queue queue;
 
-    public Publicador(RabbitTemplate rabbitTemplate) {
+    public Publicador(RabbitTemplate rabbitTemplate, Queue queue) {
         this.rabbitTemplate = rabbitTemplate;
+        this.queue = queue;
     }
 
     public void enviarMensaje(Object mensaje) {
-        rabbitTemplate.convertAndSend(?????????????);
+        rabbitTemplate.convertAndSend(queue.getName(), mensaje);
     }
 }
