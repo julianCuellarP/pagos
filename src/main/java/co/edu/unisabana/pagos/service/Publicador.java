@@ -20,4 +20,12 @@ public class Publicador {
     public void enviarMensaje(Object mensaje) {
         rabbitTemplate.convertAndSend(queue.getName(), mensaje);
     }
+
+    public void enviarMensaje2(Object mensaje) {
+        rabbitTemplate.convertAndSend("unisabana.test.direct", "admin", mensaje);
+    }
+
+    public void enviarMensajeTopico(Object mensaje) {
+        rabbitTemplate.convertAndSend("unisabana.pagos.topic", "unisabana.pagos.*", mensaje);
+    }
 }

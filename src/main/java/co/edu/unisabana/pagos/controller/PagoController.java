@@ -1,5 +1,6 @@
 package co.edu.unisabana.pagos.controller;
 
+import co.edu.unisabana.pagos.service.ClasePago;
 import co.edu.unisabana.pagos.service.Publicador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,8 @@ public class PagoController {
 
     @PostMapping("/pay")
     public String pagar() {
-        publicador.enviarMensaje(new Pago(100, "01", "22"));
+        Pago mensaje = new Pago(100, "01", "22");
+        publicador.enviarMensajeTopico(mensaje);
         return "Hola Mundo VOLVI MAS FUERTE " + valor;
     }
 }
