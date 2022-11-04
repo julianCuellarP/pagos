@@ -13,17 +13,6 @@ public class Consumer {
     @RabbitListener(queues = "sabana.arquitectura2")
     public void receive(@Payload Pago pago) {
         log.info("sabana.arquitectura2: {}", pago.getMonto());
-
-        /**
-         * Esto de aca abajo simula que la escucha del mensaje se demora 10 segundos.
-         *    :)
-         */
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        log.info("Procesaimiento Terminado del mensaje: {}", pago);
     }
 
     @RabbitListener(queues = "unisabana.pagos.procesar")
